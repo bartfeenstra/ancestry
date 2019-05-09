@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+. ./bin/.venv
+./bin/.build-dev
+
+# Fix Python code style violations.
+autopep8 --in-place -r ./ancestry

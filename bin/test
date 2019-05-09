@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+. ./bin/.venv
+./bin/.build-dev
+
+# Test the Python code style.
+flake8 --ignore=E501 ./ancestry

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+pip install .
+pip install git+https://github.com/bartfeenstra/betty.git

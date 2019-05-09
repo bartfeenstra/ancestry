@@ -1,0 +1,16 @@
+{
+	"output": "./output",
+	"url": "https://bartfeenstra.com",
+	"title": "Bart Feenstra's ancestry",
+	"resources": "./resources",
+	"plugins": {
+		"betty.plugins.gramps.Gramps": {
+			"file": "/home/bart/Desktop/ancestry.gpkg"
+		},
+		"betty.plugins.privatizer.Privatizer": {},
+		"betty.plugins.anonymizer.Anonymizer": {},
+		"betty.plugins.cleaner.Cleaner": {},
+		"betty.plugins.maps.Maps": {},
+		"ancestry.plugins.Bart": {}
+	}
+}

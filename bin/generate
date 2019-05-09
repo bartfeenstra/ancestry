@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+. ./bin/.venv
+./bin/.build
+rm -rf ./output
+betty generate --config ./betty.json
