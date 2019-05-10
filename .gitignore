@@ -1,2 +1,7 @@
+# Site artifacts.
 /output
+
+# Build artifacts.
+/ancestry.egg-info
 /venv
+*.pyc

@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 
 SETUP = {
+    'name': 'ancestry',
     'extras_require': {
         'development': [
             'autopep8 ~= 1.4.3',
