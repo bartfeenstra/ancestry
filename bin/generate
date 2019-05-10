@@ -4,5 +4,8 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
+rm -rf ./input
+mkdir ./input
 rm -rf ./output
+gramps -O ancestry -e ./input/ancestry.gramps
 betty generate --config ./betty.json

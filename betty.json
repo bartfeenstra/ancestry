@@ -5,7 +5,7 @@
 	"resources": "./resources",
 	"plugins": {
 		"betty.plugins.gramps.Gramps": {
-			"file": "/home/bart/Desktop/ancestry.gpkg"
+			"file": "./input/ancestry.gramps"
 		},
 		"betty.plugins.privatizer.Privatizer": {},
 		"betty.plugins.anonymizer.Anonymizer": {},
