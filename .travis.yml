@@ -3,5 +3,8 @@ language: python
 cache:
     - pip
 
+install:
+    - ./bin/build-dev
+
 script:
     - ./bin/test
