@@ -1,4 +1,5 @@
-# Site artifacts.
+# Gramps & Betty artifacts.
+/input
 /output
 
 # Build artifacts.
