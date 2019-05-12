@@ -1,7 +1,7 @@
 {
 	"output": "./output",
 	"url": "https://bartfeenstra.com",
-	"title": "Bart Feenstra's ancestry",
+	"title": "Bart's ancestry",
 	"resources": "./resources",
 	"plugins": {
 		"betty.plugins.gramps.Gramps": {
