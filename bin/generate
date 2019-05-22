@@ -8,4 +8,4 @@ rm -rf ./input
 mkdir ./input
 rm -rf ./output
 gramps -O ancestry -e ./input/ancestry.gramps
-betty generate --config ./betty.json
+betty -c ./betty.json generate
