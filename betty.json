@@ -1,6 +1,7 @@
 {
 	"output": "./output",
-	"url": "https://bartfeenstra.com",
+	"base_url": "https://bartfeenstra.com",
+	"clean_urls": true,
 	"title": "Bart's ancestry",
 	"resources": "./resources",
 	"plugins": {
