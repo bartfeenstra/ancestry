@@ -1,6 +1,6 @@
 {
 	"output": "./output",
-	"base_url": "https://bartfeenstra.com",
+	"base_url": "https://ancestry.bartfeenstra.com",
 	"clean_urls": true,
 	"title": "Bart's ancestry",
 	"resources": "./resources",
