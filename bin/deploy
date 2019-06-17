@@ -4,4 +4,4 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-rsync --delete -r ./output/ ancestry.bartfeenstra.com:/var/www/ancestry/
+rsync --delete --progress -r ./output/ ancestry.bartfeenstra.com:/var/www/ancestry/
