@@ -11,6 +11,7 @@
 		"betty.plugins.privatizer.Privatizer": {},
 		"betty.plugins.anonymizer.Anonymizer": {},
 		"betty.plugins.cleaner.Cleaner": {},
+		"betty.plugins.wikipedia.Wikipedia": {},
 		"betty.plugins.maps.Maps": {},
 		"ancestry.plugins.Bart": {}
 	}
