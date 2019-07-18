@@ -4,4 +4,8 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-rsync --delete --progress -r ./output/ ancestry.bartfeenstra.com:/var/www/ancestry/
+rsync --delete --progress -r ./output/www/ ancestry.bartfeenstra.com:/var/www/ancestry/
+awk '{if($1 == "root") {print "root /var/www/ancestry/;"} else {print $0}}' ./output/nginx.conf | ssh ancestry.bartfeenstra.com 'cat > ./ancestry-nginx.conf'
+ssh -tt ancestry.bartfeenstra.com 'sudo mv ./ancestry-nginx.conf /etc/nginx/sites-available/ancestry.conf && \
+    sudo certbot run --nginx -n -m bart@mynameisbart.com -d ancestry.bartfeenstra.com && \
+    sudo nginx -s reload'
