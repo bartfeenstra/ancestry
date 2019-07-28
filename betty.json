@@ -13,6 +13,7 @@
 		"betty.plugins.cleaner.Cleaner": {},
 		"betty.plugins.wikipedia.Wikipedia": {},
 		"betty.plugins.maps.Maps": {},
+		"betty.plugins.trees.Trees": {},
 		"ancestry.plugins.PublishBart": {},
 		"ancestry.plugins.PopulateBart": {},
 		"betty.plugins.nginx.Nginx": {}
