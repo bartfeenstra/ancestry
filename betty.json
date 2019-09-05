@@ -1,4 +1,5 @@
 {
+	"mode": "production",
 	"output": "./output",
 	"base_url": "https://ancestry.bartfeenstra.com",
 	"clean_urls": true,
@@ -14,6 +15,7 @@
 		"betty.plugins.wikipedia.Wikipedia": {},
 		"betty.plugins.maps.Maps": {},
 		"betty.plugins.trees.Trees": {},
+		"betty.plugins.search.Search": {},
 		"ancestry.plugins.PublishBart": {},
 		"ancestry.plugins.PopulateBart": {},
 		"betty.plugins.nginx.Nginx": {}
