@@ -1,0 +1,19 @@
+mode: production
+output: ./output
+base_url: https://ancestry.bartfeenstra.com
+clean_urls: true
+title: Bart's ancestry
+resources: ./resources
+plugins:
+  betty.plugins.gramps.Gramps:
+    file: ./input/ancestry.gramps
+  betty.plugins.privatizer.Privatizer: {}
+  betty.plugins.anonymizer.Anonymizer: {}
+  betty.plugins.cleaner.Cleaner: {}
+  betty.plugins.wikipedia.Wikipedia: {}
+  betty.plugins.maps.Maps: {}
+  betty.plugins.trees.Trees: {}
+  betty.plugins.search.Search: {}
+  ancestry.plugins.PublishBart: {}
+  ancestry.plugins.PopulateBart: {}
+  betty.plugins.nginx.Nginx: {}
