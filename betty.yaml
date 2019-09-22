@@ -17,4 +17,4 @@ plugins:
   ancestry.plugins.PublishBart: {}
   ancestry.plugins.PopulateBart: {}
   betty.plugins.nginx.Nginx: {}
-locale: ['nl', 'NL']
+locales: [['en', 'US'], ['nl', 'NL']]
