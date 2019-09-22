@@ -1,7 +1,7 @@
 mode: production
 output: ./output
-base_url: https://ancestry.bartfeenstra.com
-clean_urls: true
+base_url: file://
+root_path: /home/bart/code/bartfeenstra/ancestry/output/www
 title: Bart's ancestry
 resources: ./resources
 plugins:
