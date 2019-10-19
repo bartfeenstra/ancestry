@@ -1,6 +1,6 @@
 mode: production
 output: ./output
-base_url: https://ancestry.bartfeenstra.com
+base_url: http://ancestry.local
 clean_urls: true
 title: Bart's ancestry
 resources: ./resources
