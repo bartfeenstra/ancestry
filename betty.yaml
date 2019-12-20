@@ -3,6 +3,7 @@ output: ./output
 base_url: https://ancestry.bartfeenstra.com
 content_negotiation: true
 title: Bart's ancestry
+#author: Bart Feenstra
 resources: ./resources
 plugins:
   betty.plugins.gramps.Gramps:
