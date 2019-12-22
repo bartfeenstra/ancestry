@@ -1,9 +1,9 @@
 mode: production
 output: ./output
-base_url: https://ancestry.bartfeenstra.com
-content_negotiation: true
+base_url: http://ancestry.local
+clean_urls: true
 title: Bart's ancestry
-#author: Bart Feenstra
+author: Bart Feenstra
 resources: ./resources
 plugins:
   betty.plugins.gramps.Gramps:
