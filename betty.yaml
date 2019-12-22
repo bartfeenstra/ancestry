@@ -1,6 +1,6 @@
 mode: production
 output: ./output
-base_url: http://ancestry.local
+base_url: https://ancestry.bartfeenstra.com
 clean_urls: true
 title: Bart's ancestry
 author: Bart Feenstra
