@@ -1,5 +1,6 @@
 from typing import Callable, Tuple, List, Set, Type
 
+from betty.ancestry import PersonName
 from betty.parse import PostParseEvent
 from betty.plugin import Plugin
 from betty.plugins.anonymizer import Anonymizer, anonymize_person
@@ -34,5 +35,4 @@ class PopulateBart(Plugin):
     def _populate_bart(self, event: PostParseEvent):
         bart = event.ancestry.people['I0000']
         anonymize_person(bart)
-        bart.individual_name = 'Bart'
-        bart.family_name = 'Feenstra'
+        bart.names.prepend(PersonName('Bart', 'Feenstra'))
