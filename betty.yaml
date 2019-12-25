@@ -1,7 +1,7 @@
 mode: production
 output: ./output
 base_url: https://ancestry.bartfeenstra.com
-clean_urls: true
+content_negotiation: true
 title: Bart's ancestry
 author: Bart Feenstra
 resources: ./resources
@@ -17,7 +17,9 @@ plugins:
   betty.plugins.search.Search: {}
   ancestry.plugins.PublishBart: {}
   ancestry.plugins.PopulateBart: {}
-  betty.plugins.nginx.Nginx: {}
+  betty.plugins.nginx.Nginx:
+    www_directory_path: /var/www/betty/
+    https: false
 locales:
   - locale: en-US
     alias: en
