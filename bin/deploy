@@ -8,6 +8,7 @@ rsync --delete --progress --perms -r ./output/www/ ancestry.bartfeenstra.com:/op
 base_url=$(yq r ./betty.yaml 'base_url')
 nginx_server_name=$(python -c "from urllib.parse import urlparse; print(urlparse('$base_url').netloc)")
 rsync --delete --progress --perms -r ./output/nginx/ ancestry.bartfeenstra.com:/opt/ancestry/nginx
+# shellcheck disable=SC2087
 ssh -tt ancestry.bartfeenstra.com 'bash -s' << EOF
 cd /opt/ancestry/nginx
 docker build -t ancestry .
