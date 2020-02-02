@@ -8,6 +8,7 @@ resources: ./resources
 plugins:
   betty.plugins.gramps.Gramps:
     file: ./input/ancestry.gramps
+  betty.plugins.deriver.Deriver: {}
   betty.plugins.privatizer.Privatizer: {}
   betty.plugins.anonymizer.Anonymizer: {}
   betty.plugins.cleaner.Cleaner: {}
