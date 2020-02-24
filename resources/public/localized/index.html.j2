@@ -1,6 +1,6 @@
 {% extends 'base.html.j2' %}
-{% set title = _('Welcome to %(title)s') | format(title=site.configuration.title) %}
-{% block content %}
+{% set page_title = _('Welcome to %(title)s') | format(title=site.configuration.title) %}
+{% block page_content %}
     <p>
     {% trans -%}
         My ancestry research's main focus lies on the <a href="https://en.wikipedia.org/wiki/Lankester">Lankester</a>
