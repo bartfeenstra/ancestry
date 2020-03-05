@@ -4,6 +4,7 @@ from betty.ancestry import PersonName
 from betty.parse import PostParseEvent
 from betty.plugin import Plugin
 from betty.plugins.anonymizer import Anonymizer, anonymize_person
+from betty.plugins.cleaner import Cleaner
 from betty.plugins.privatizer import Privatizer
 
 
@@ -26,6 +27,10 @@ class PopulateBart(Plugin):
     @classmethod
     def depends_on(cls) -> Set[Type]:
         return {Anonymizer}
+
+    @classmethod
+    def comes_before(cls) -> Set[Type]:
+        return {Cleaner}
 
     def subscribes_to(self) -> List[Tuple[str, Callable]]:
         return [
