@@ -15,7 +15,6 @@ plugins:
   betty.plugins.wikipedia.Wikipedia: {}
   betty.plugins.maps.Maps: {}
   betty.plugins.trees.Trees: {}
-  betty.plugins.search.Search: {}
   ancestry.plugins.PublishBart: {}
   ancestry.plugins.PopulateBart: {}
   betty.plugins.nginx.Nginx:
