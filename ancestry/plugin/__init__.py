@@ -3,9 +3,9 @@ from typing import Callable, Tuple, List, Set, Type
 from betty.ancestry import PersonName
 from betty.parse import PostParseEvent
 from betty.plugin import Plugin
-from betty.plugins.anonymizer import Anonymizer, anonymize_person
-from betty.plugins.cleaner import Cleaner
-from betty.plugins.privatizer import Privatizer
+from betty.plugin.anonymizer import Anonymizer, anonymize_person
+from betty.plugin.cleaner import Cleaner
+from betty.plugin.privatizer import Privatizer
 
 
 class PublishBart(Plugin):
