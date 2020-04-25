@@ -4,19 +4,19 @@ base_url: https://ancestry.bartfeenstra.com
 content_negotiation: true
 title: Bart's ancestry
 author: Bart Feenstra
-resources: ./resources
+resources_directory_path: ./resources
 plugins:
   betty.plugin.gramps.Gramps:
     file: ./input/ancestry.gramps
-  betty.plugin.deriver.Deriver: {}
-  betty.plugin.privatizer.Privatizer: {}
-  betty.plugin.anonymizer.Anonymizer: {}
-  betty.plugin.cleaner.Cleaner: {}
-  betty.plugin.wikipedia.Wikipedia: {}
-  betty.plugin.maps.Maps: {}
-  betty.plugin.trees.Trees: {}
-  ancestry.plugin.PublishBart: {}
-  ancestry.plugin.PopulateBart: {}
+  betty.plugin.deriver.Deriver: ~
+  betty.plugin.privatizer.Privatizer: ~
+  betty.plugin.anonymizer.Anonymizer: ~
+  betty.plugin.cleaner.Cleaner: ~
+  betty.plugin.wikipedia.Wikipedia: ~
+  betty.plugin.maps.Maps: ~
+  betty.plugin.trees.Trees: ~
+  ancestry.plugin.PublishBart: ~
+  ancestry.plugin.PopulateBart: ~
   betty.plugin.nginx.Nginx:
     www_directory_path: /var/www/betty/
     https: false
