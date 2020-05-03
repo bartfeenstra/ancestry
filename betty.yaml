@@ -4,7 +4,7 @@ base_url: https://ancestry.bartfeenstra.com
 content_negotiation: true
 title: Bart's ancestry
 author: Bart Feenstra
-resources_directory_path: ./resources
+assets_directory_path: ./assets
 plugins:
   betty.plugin.gramps.Gramps:
     file: ./input/ancestry.gramps
