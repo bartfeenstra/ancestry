@@ -25,3 +25,4 @@ locales:
     alias: en
   - locale: nl-NL
     alias: nl
+  - locale: uk
