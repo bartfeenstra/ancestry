@@ -4,7 +4,7 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-for locale_directory_path in ./resources/locale/*; do
+for locale_directory_path in ./assets/locale/*; do
   language=$(basename "$locale_directory_path")
-  pybabel compile -d ./resources/locale -l "$language" -D betty
+  pybabel compile -d ./assets/locale -l "$language" -D betty
 done
