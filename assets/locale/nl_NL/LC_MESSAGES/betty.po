@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ancestry VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-10-19 12:50+0100\n"
+"POT-Creation-Date: 2020-05-03 19:06+0100\n"
 "PO-Revision-Date: 2019-09-17 23:28+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: nl_NL\n"
@@ -18,12 +18,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: resources/public/localized/index.html.j2:2
+#: assets/public/localized/index.html.j2:4
 #, python-format
-msgid "Welcome to %(title)s"
-msgstr ""
-
-#: resources/public/localized/index.html.j2:5
 msgid ""
 "My ancestry research's main focus lies on the <a "
 "href=\"https://en.wikipedia.org/wiki/Lankester\">Lankester</a>\n"
@@ -33,11 +29,11 @@ msgid ""
 " which itself was named after a fort\n"
 "        on the river <a "
 "href=\"https://en.wikipedia.org/wiki/River_Lune\">Lune</a>.\n"
-"        <a href=\"/person/I0004/\">My grandmother</a> is the last "
-"Lankester in my own lineage."
+"        <a href=\"%(my_grandmother_url)s\">My grandmother</a> is the last"
+" Lankester in my own lineage."
 msgstr ""
 
-#: resources/public/localized/index.html.j2:14
+#: assets/public/localized/index.html.j2:12
 msgid ""
 "Because history and data are fun, my research does not stop at the "
 "Lankesters I descend from. It's fascinating\n"
@@ -47,7 +43,7 @@ msgid ""
 "such as siblings, spouses, and their histories."
 msgstr ""
 
-#: resources/public/localized/index.html.j2:21
+#: assets/public/localized/index.html.j2:18
 msgid ""
 "The content on this website has been collected from many public archives,"
 " often staffed by volunteers, who spent\n"
@@ -55,7 +51,7 @@ msgid ""
 "a wealth of priceless information."
 msgstr ""
 
-#: resources/public/localized/index.html.j2:27
+#: assets/public/localized/index.html.j2:23
 msgid ""
 "I'd particularly like to thank my friend Carmen Louwe for her expertise "
 "in translating and transcribing\n"
@@ -66,29 +62,17 @@ msgid ""
 "        my search."
 msgstr ""
 
-#: resources/public/localized/index.html.j2:35
+#: assets/public/localized/index.html.j2:30
 msgid ""
 "Media and other content has been attributed where possible. Please "
 "contact me for corrections."
 msgstr "Bronnen zijn zoveel mogelijk vermeld. Neem contact op voor correcties."
 
-#: resources/templates/footer.html.j2:1
-msgid "© Copyright Bart Feenstra, unless otherwise credited"
-msgstr "© Copyright Bart Feenstra, tenzij anders vermeld"
-
-#: resources/templates/footer.html.j2:2
+#: assets/templates/footer.html.j2:6
 msgid ""
 "Contact me on <a href=\"https://twitter.com/BartFeenstra\">Twitter</a> or"
 " via <a href=\"mailto:bart@bartfeenstra.com\">email</a>"
 msgstr ""
 "Neem contact op via <a "
-"href=\"https://twitter.com/BartFeenstra\">Twitter</a> of "
-"<a href=\"mailto:bart@bartfeenstra.com\">email</a>"
-
-#: resources/templates/footer.html.j2:3
-msgid ""
-"A family history as told by <a "
-"href=\"https://github.com/bartfeenstra/betty\">Betty</a>"
-msgstr ""
-"Een familieverhaal, verteld door <a "
-"href=\"https://github.com/bartfeenstra/betty\">Betty</a>"
+"href=\"https://twitter.com/BartFeenstra\">Twitter</a> of <a "
+"href=\"mailto:bart@bartfeenstra.com\">email</a>"

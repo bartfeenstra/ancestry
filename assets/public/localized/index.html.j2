@@ -1,12 +1,12 @@
 {% extends 'base.html.j2' %}
 {% block page_content %}
     <p>
-    {% trans -%}
+    {% trans my_grandmother_url = '/person/I0004/' | url -%}
         My ancestry research's main focus lies on the <a href="https://en.wikipedia.org/wiki/Lankester">Lankester</a>
         family name, derived from the English city of
         <a href="https://en.wikipedia.org/wiki/Lancaster,_Lancashire">Lancaster</a>, which itself was named after a fort
         on the river <a href="https://en.wikipedia.org/wiki/River_Lune">Lune</a>.
-        <a href="/person/I0004/">My grandmother</a> is the last Lankester in my own lineage.
+        <a href="{{ my_grandmother_url }}">My grandmother</a> is the last Lankester in my own lineage.
     {%- endtrans %}
     </p>
     <p>
