@@ -5,6 +5,8 @@ content_negotiation: true
 title: Bart's ancestry
 author: Bart Feenstra
 assets_directory_path: ./assets
+theme:
+  background_image_id: O0301
 plugins:
   betty.plugin.gramps.Gramps:
     file: ./input/ancestry.gramps
