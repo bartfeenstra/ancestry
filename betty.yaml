@@ -17,8 +17,8 @@ plugins:
   betty.plugin.wikipedia.Wikipedia: ~
   betty.plugin.maps.Maps: ~
   betty.plugin.trees.Trees: ~
-  ancestry.plugin.PublishBart: ~
-  ancestry.plugin.PopulateBart: ~
+  ancestry.plugin.PublishPeople: ~
+  ancestry.plugin.PopulatePeople: ~
   betty.plugin.nginx.Nginx:
     www_directory_path: /var/www/betty/
     https: false
