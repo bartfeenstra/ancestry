@@ -2,7 +2,7 @@ mode: production
 output: ./output
 base_url: https://ancestry.bartfeenstra.com
 content_negotiation: true
-title: Bart's ancestry
+title: Lankester & Feenstra ancestries
 author: Bart Feenstra
 assets_directory_path: ./assets
 theme:
