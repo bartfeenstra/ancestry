@@ -4,6 +4,7 @@ base_url: https://ancestry.bartfeenstra.com
 content_negotiation: true
 title: Lankester & Feenstra ancestries
 author: Bart Feenstra
+lifetime_threshold: 100
 assets_directory_path: ./assets
 theme:
   background_image_id: O0301
