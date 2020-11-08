@@ -1,12 +1,12 @@
-from typing import Callable, Tuple, List, Set, Type
+from typing import Any, Callable, Tuple, List, Set, Type
 
-from betty.ancestry import PersonName
-from betty.event import Event
-from betty.parse import PostParseEvent
-from betty.plugin import Plugin
+from betty.ancestry import Ancestry, PersonName
+from betty.parse import PostParser
+from betty.plugin import NO_CONFIGURATION, Plugin
 from betty.plugin.anonymizer import Anonymizer, anonymize_person
 from betty.plugin.cleaner import Cleaner
 from betty.plugin.privatizer import Privatizer
+from betty.site import Site
 
 
 _PEOPLE = {
@@ -15,22 +15,34 @@ _PEOPLE = {
 }
 
 
-class PublishPeople(Plugin):
+class PublishPeople(Plugin, PostParser):
+    def __init__(self, ancestry: Ancestry):
+        self._ancestry = ancestry
+
+    @classmethod
+    def for_site(cls, site: Site, configuration: Any = NO_CONFIGURATION):
+        return cls(site.ancestry)
+
     @classmethod
     def comes_before(cls) -> Set[Type]:
         return {Privatizer}
 
-    def subscribes_to(self) -> List[Tuple[Type[Event], Callable]]:
-        return [
-            (PostParseEvent, self._publish_people),
-        ]
+    async def post_parse(self) -> None:
+        self._publish_people()
 
-    async def _publish_people(self, event: PostParseEvent):
+    def _publish_people(self):
         for person_id in _PEOPLE:
-            event.ancestry.people[person_id].private = False
+            self._ancestry.people[person_id].private = False
 
 
-class PopulatePeople(Plugin):
+class PopulatePeople(Plugin, PostParser):
+    def __init__(self, ancestry: Ancestry):
+        self._ancestry = ancestry
+
+    @classmethod
+    def for_site(cls, site: Site, configuration: Any = NO_CONFIGURATION):
+        return cls(site.ancestry)
+
     @classmethod
     def depends_on(cls) -> Set[Type]:
         return {Anonymizer}
@@ -39,13 +51,11 @@ class PopulatePeople(Plugin):
     def comes_before(cls) -> Set[Type]:
         return {Cleaner}
 
-    def subscribes_to(self) -> List[Tuple[Type[Event], Callable]]:
-        return [
-            (PostParseEvent, self._populate_people),
-        ]
+    async def post_parse(self) -> None:
+        self._populate_people()
 
-    async def _populate_people(self, event: PostParseEvent):
+    def _populate_people(self):
         for person_id, person_name in _PEOPLE.items():
-            person = event.ancestry.people[person_id]
+            person = self._ancestry.people[person_id]
             anonymize_person(person)
             person.names.prepend(person_name)
