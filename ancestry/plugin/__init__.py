@@ -1,4 +1,4 @@
-from typing import Any, Callable, Tuple, List, Set, Type
+from typing import Any, Set, Type
 
 from betty.ancestry import Ancestry, PersonName
 from betty.parse import PostParser
