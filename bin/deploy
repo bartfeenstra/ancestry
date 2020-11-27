@@ -11,7 +11,7 @@ rsync --delete --progress --perms -r ./output/nginx/ ancestry.bartfeenstra.com:/
 # shellcheck disable=SC2087
 ssh -tt ancestry.bartfeenstra.com 'bash -s' << EOF
 set -Eeuo pipefail
-cd /opt/ancestry/nginx
+cd /opt/ancestry/nginx/docker
 docker build -t ancestry .
 docker stop ancestry || true
 docker container rm ancestry || true
