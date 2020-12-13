@@ -1,31 +1,35 @@
-mode: production
-output: ./output
-base_url: https://ancestry.bartfeenstra.com
+base_url: http://ancestry.bartfeenstra.com
 content_negotiation: true
 title: Lankester & Feenstra ancestries
 author: Bart Feenstra
 lifetime_threshold: 100
-assets_directory_path: ./assets
-theme:
-  background_image_id: O0301
-plugins:
-  betty.plugin.gramps.Gramps:
-    file: ./input/ancestry.gramps
-  betty.plugin.deriver.Deriver: ~
-  betty.plugin.privatizer.Privatizer: ~
-  betty.plugin.anonymizer.Anonymizer: ~
-  betty.plugin.cleaner.Cleaner: ~
-  betty.plugin.wikipedia.Wikipedia: ~
-  betty.plugin.maps.Maps: ~
-  betty.plugin.trees.Trees: ~
-  ancestry.plugin.PublishPeople: ~
-  ancestry.plugin.PopulatePeople: ~
-  betty.plugin.nginx.Nginx:
-    www_directory_path: /var/www/betty/
-    https: false
+extensions:
+  betty.extension.CottonCandy:
+    configuration:
+      featured_entities:
+        - entity_type: Person
+          entity_id: I0004
+        - entity_type: Place
+          entity_id: P0000
+        - entity_type: Person
+          entity_id: I0025
+        - entity_type: Person
+          entity_id: I0525
+  betty.extension.Gramps:
+    configuration:
+      family_trees:
+        - file: ./input/ancestry.gramps
+  betty.extension.Deriver: {}
+  betty.extension.Privatizer: {}
+  betty.extension.Wikipedia: {}
+  betty.extension.Maps: {}
+  betty.extension.Nginx: {}
+  betty.extension.HttpApiDoc: {}
+  betty.extension.Trees: {}
+  ancestry.extension.PublishPeople: {}
 locales:
-  - locale: en-US
+  en-US:
     alias: en
-  - locale: nl-NL
+  nl-NL:
     alias: nl
-  - locale: uk
+  uk: {}

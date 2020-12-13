@@ -4,4 +4,4 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-pip install -e '.[development]'
+pip install --pre -e '.[development]'

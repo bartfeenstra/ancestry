@@ -2,13 +2,19 @@ from setuptools import setup, find_packages
 
 SETUP = {
     'name': 'ancestry',
+    'python_requires': '~= 3.11',
     'install_requires': [
-        'betty ~= 0.2.0',
+        'betty == 0.3.0a3',
     ],
     'extras_require': {
         'development': [
-            'autopep8 ~= 1.4.3',
-            'flake8 ~= 3.7.0',
+            'autopep8 ~= 2.0.4',
+            'flake8 ~= 6.1.0',
+        ],
+    },
+    'entry_points': {
+        'betty.extensions': [
+            'ancestry.extension.PublishPeople=ancestry.extension.PublishPeople',
         ],
     },
     'packages': find_packages(),

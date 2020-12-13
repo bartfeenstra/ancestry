@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+cd "$(dirname "$0")/.."
+
+rm -rf ./input
+mkdir ./input
+gramps -O ancestry -e ./input/ancestry.gramps
