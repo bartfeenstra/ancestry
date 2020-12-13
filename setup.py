@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 SETUP = {
     'name': 'ancestry',
     'install_requires': [
-        'betty ~= 0.2.0',
+        'betty ~= 0.3.0',
     ],
     'extras_require': {
         'development': [

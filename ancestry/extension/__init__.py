@@ -1,12 +1,12 @@
-from typing import Any, Set, Type
+from typing import Set, Type
 
 from betty.ancestry import Ancestry, PersonName
-from betty.parse import PostParser
-from betty.plugin import NO_CONFIGURATION, Plugin
-from betty.plugin.anonymizer import Anonymizer, anonymize_person
-from betty.plugin.cleaner import Cleaner
-from betty.plugin.privatizer import Privatizer
-from betty.site import Site
+from betty.load import PostLoader
+from betty.extension import Extension
+from betty.extension.anonymizer import Anonymizer, anonymize_person
+from betty.extension.cleaner import Cleaner
+from betty.extension.privatizer import Privatizer
+from betty.app import App, AppAwareFactory
 
 
 _PEOPLE = {
@@ -15,19 +15,19 @@ _PEOPLE = {
 }
 
 
-class PublishPeople(Plugin, PostParser):
+class PublishPeople(Extension, PostLoader, AppAwareFactory):
     def __init__(self, ancestry: Ancestry):
         self._ancestry = ancestry
 
     @classmethod
-    def for_site(cls, site: Site, configuration: Any = NO_CONFIGURATION):
-        return cls(site.ancestry)
+    def new_for_app(cls, app: App):
+        return cls(app.ancestry)
 
     @classmethod
     def comes_before(cls) -> Set[Type]:
         return {Privatizer}
 
-    async def post_parse(self) -> None:
+    async def post_load(self) -> None:
         self._publish_people()
 
     def _publish_people(self):
@@ -35,13 +35,13 @@ class PublishPeople(Plugin, PostParser):
             self._ancestry.people[person_id].private = False
 
 
-class PopulatePeople(Plugin, PostParser):
+class PopulatePeople(Extension, PostLoader, AppAwareFactory):
     def __init__(self, ancestry: Ancestry):
         self._ancestry = ancestry
 
     @classmethod
-    def for_site(cls, site: Site, configuration: Any = NO_CONFIGURATION):
-        return cls(site.ancestry)
+    def new_for_app(cls, app: App):
+        return cls(app.ancestry)
 
     @classmethod
     def depends_on(cls) -> Set[Type]:
@@ -51,7 +51,7 @@ class PopulatePeople(Plugin, PostParser):
     def comes_before(cls) -> Set[Type]:
         return {Cleaner}
 
-    async def post_parse(self) -> None:
+    async def post_load(self) -> None:
         self._populate_people()
 
     def _populate_people(self):
