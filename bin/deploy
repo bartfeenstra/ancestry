@@ -4,10 +4,10 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-rsync --delete --progress --perms -r ./output/www/ ancestry.bartfeenstra.com:/opt/ancestry/www
-base_url=$(yq r ./betty.yaml 'base_url')
+rsync --delete --perms -r ./output/www/ ancestry.bartfeenstra.com:/opt/ancestry/www
+base_url=$(yq eval '.base_url' betty.yaml)
 nginx_server_name=$(python -c "from urllib.parse import urlparse; print(urlparse('$base_url').netloc)")
-rsync --delete --progress --perms -r ./output/nginx/ ancestry.bartfeenstra.com:/opt/ancestry/nginx
+rsync --delete --perms -r ./output/nginx/ ancestry.bartfeenstra.com:/opt/ancestry/nginx
 # shellcheck disable=SC2087
 ssh -tt ancestry.bartfeenstra.com 'bash -s' << EOF
 set -Eeuo pipefail
@@ -18,8 +18,8 @@ docker container rm ancestry || true
 docker run -d --name ancestry --restart always -v /opt/ancestry/nginx/nginx.conf:/etc/nginx/conf.d/betty.conf -v /opt/ancestry/www:/var/www/betty:ro ancestry
 container_ip=\$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" ancestry)
 docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" ancestry
-echo "server {listen 80;server_name $nginx_server_name;return 301 https://\\\$host\\\$request_uri;}server{listen 443 ssl http2;server_name $nginx_server_name;add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\" always;location / {proxy_pass http://\$container_ip;}}" > /etc/nginx/sites-available/ancestry.conf
+echo "server {listen 80;server_name $nginx_server_name;add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\" always;location / {proxy_pass http://\$container_ip;}}" > /etc/nginx/sites-available/ancestry.conf
 exit 0
 EOF
-ssh -tt ancestry.bartfeenstra.com 'sudo certbot run --nginx -n -m bart@mynameisbart.com -d ancestry.bartfeenstra.com && ' \
+ssh -tt ancestry.bartfeenstra.com 'sudo certbot run --nginx -n --agree-tos -m bart@mynameisbart.com -d ancestry.bartfeenstra.com && ' \
     'sudo nginx -s reload'
