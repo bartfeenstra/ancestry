@@ -1,6 +1,6 @@
-{% if site.configuration.author %}
+{% if app.project.configuration.author %}
     <p>
-        {% trans author = site.configuration.author %}© Copyright {{ author }}, unless otherwise credited{% endtrans %}
+        {% trans author = app.project.configuration.author %}© Copyright {{ author }}, unless otherwise credited{% endtrans %}
     </p>
 {% endif %}
 <p>{% trans %}Contact me on <a href="https://twitter.com/BartFeenstra">Twitter</a> or via <a href="mailto:bart@bartfeenstra.com">email</a>{% endtrans %}</p>
