@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    assignees:
+      - bartfeenstra
+    commit-message:
+      prefix: Github Actions dependencies
+      include: scope
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    assignees:
+      - bartfeenstra
+    commit-message:
+      prefix: pip dependencies
+      include: scope
