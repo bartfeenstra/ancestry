@@ -1,7 +1,7 @@
 from betty.app.extension import Extension, UserFacingExtension
 from betty.extension import Privatizer
 from betty.load import PostLoader, getLogger
-from betty.locale import Localizer
+from betty.locale import Str
 from betty.model.ancestry import PersonName, Person, Event, Place, Presence, Subject
 from betty.model.event_type import Birth
 
@@ -17,12 +17,12 @@ class PublishPeople(UserFacingExtension, PostLoader):
         return {Privatizer}
 
     @classmethod
-    def label(cls, localizer: Localizer) -> str:
-        return 'Publish people'
+    def label(cls) -> Str:
+        return Str.plain('Publish people')
 
     @classmethod
-    def description(cls, localizer: Localizer) -> str:
-        return 'Publishes curated information about selected people.'
+    def description(cls) -> Str:
+        return Str.plain('Publishes curated information about selected people.')
 
     async def post_load(self) -> None:
         self._publish_people()

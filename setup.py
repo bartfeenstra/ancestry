@@ -1,5 +1,6 @@
 from setuptools import setup, find_packages
 
+
 SETUP = {
     'name': 'ancestry',
     'python_requires': '~= 3.11',
@@ -9,6 +10,7 @@ SETUP = {
     'extras_require': {
         'development': [
             'autopep8 ~= 2.0.4',
+            'basedmypy ~= 2.0, >= 2.2.1',
             'flake8 ~= 6.1.0',
         ],
     },
