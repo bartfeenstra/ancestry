@@ -23,7 +23,10 @@ extensions:
   betty.extension.Privatizer: {}
   betty.extension.Wikipedia: {}
   betty.extension.Maps: {}
-  betty.extension.Nginx: {}
+  betty.extension.Nginx:
+    configuration:
+      www_directory_path: /var/www/betty/
+      https: false
   betty.extension.HttpApiDoc: {}
   betty.extension.Trees: {}
   ancestry.extension.PublishPeople: {}
