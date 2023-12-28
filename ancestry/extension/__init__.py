@@ -1,13 +1,19 @@
 from betty.app.extension import Extension, UserFacingExtension
 from betty.extension import Privatizer
 from betty.load import PostLoader, getLogger
-from betty.locale import Str
-from betty.model.ancestry import PersonName, Person, Event, Place, Presence, Subject
+from betty.locale import Str, DEFAULT_LOCALIZER
+from betty.model.ancestry import PersonName, Person, Event, File, Place, Presence, Subject
 from betty.model.event_type import Birth
 
 _PEOPLE = {
     'I0000': ('Bart', 'Feenstra'),
     'I0863': ('Ger', 'Huijbregts'),
+}
+
+
+_FILES = {
+    'O0530',
+    'O0531',
 }
 
 
@@ -26,6 +32,7 @@ class PublishPeople(UserFacingExtension, PostLoader):
 
     async def post_load(self) -> None:
         self._publish_people()
+        self._publish_files()
 
     def _publish_people(self):
         getLogger().info('Publishing selected people...')
@@ -39,6 +46,7 @@ class PublishPeople(UserFacingExtension, PostLoader):
                 public=True,
             )
             self._app.project.ancestry.add(name)
+            getLogger().info(f'Published {person.label.localize(DEFAULT_LOCALIZER)}')
         bart = self._app.project.ancestry[Person]['I0000']
         netherlands = self._app.project.ancestry[Place]['P0052']
         birth = Event(
@@ -48,3 +56,10 @@ class PublishPeople(UserFacingExtension, PostLoader):
         )
         Presence(bart, Subject(), birth)
         self._app.project.ancestry.add(birth)
+
+    def _publish_files(self):
+        getLogger().info('Publishing selected files...')
+        for file_id in _FILES:
+            file = self._app.project.ancestry[File][file_id]
+            file.public = True
+            getLogger().info(f'Published {file.label.localize(DEFAULT_LOCALIZER)}')
