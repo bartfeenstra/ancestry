@@ -8,6 +8,7 @@ from betty.model.event_type import Birth
 _PEOPLE = {
     'I0000': ('Bart', 'Feenstra'),
     'I0863': ('Ger', 'Huijbregts'),
+    'I0073': ('Jan', 'Feenstra'),
 }
 
 
