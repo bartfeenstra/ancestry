@@ -9,6 +9,7 @@ _PEOPLE = {
     'I0000': ('Bart', 'Feenstra'),
     'I0863': ('Ger', 'Huijbregts'),
     'I0073': ('Jan', 'Feenstra'),
+    'I0006': ('Thom', 'Feenstra'),
 }
 
 
