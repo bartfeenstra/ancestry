@@ -4,5 +4,4 @@ set -Eeuo pipefail
 
 cd "$(dirname "$0")/.."
 
-rm -rf ./output
-betty -vv -c ./betty.yaml generate
+python -c 'from ancestry.report import report; report()'
