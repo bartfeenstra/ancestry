@@ -3,7 +3,7 @@ from betty.extension import Privatizer
 from betty.load import PostLoader, getLogger
 from betty.locale import Str, DEFAULT_LOCALIZER
 from betty.model.ancestry import PersonName, Person, Event, File, Place, Presence, Subject
-from betty.model.event_type import Birth
+from betty.model.event_type import Birth, Conference
 
 _PEOPLE = {
     'I0000': ('Bart', 'Feenstra'),
@@ -34,6 +34,7 @@ class PublishPeople(UserFacingExtension, PostLoader):
 
     async def post_load(self) -> None:
         self._publish_people()
+        self._publish_bart()
         self._publish_files()
 
     def _publish_people(self):
@@ -49,6 +50,9 @@ class PublishPeople(UserFacingExtension, PostLoader):
             )
             self._app.project.ancestry.add(name)
             getLogger().info(f'Published {person.label.localize(DEFAULT_LOCALIZER)}')
+
+    def _publish_bart(self):
+        getLogger().info('Publishing Bart...')
         bart = self._app.project.ancestry[Person]['I0000']
         netherlands = self._app.project.ancestry[Place]['P0052']
         birth = Event(
@@ -58,6 +62,10 @@ class PublishPeople(UserFacingExtension, PostLoader):
         )
         Presence(bart, Subject(), birth)
         self._app.project.ancestry.add(birth)
+        for presence in bart.presences:
+            if presence.event and presence.event.event_type is Conference:
+                presence.public = True
+                presence.event.public = True
 
     def _publish_files(self):
         getLogger().info('Publishing selected files...')
