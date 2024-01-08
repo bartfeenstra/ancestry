@@ -11,7 +11,7 @@ SETUP = {
         'development': [
             'autopep8 ~= 2.0.4',
             'basedmypy ~= 2.0, >= 2.2.1',
-            'flake8 ~= 6.1.0',
+            'flake8 >= 6.1,< 7.1',
         ],
     },
     'entry_points': {
