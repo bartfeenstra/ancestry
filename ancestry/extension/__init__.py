@@ -42,14 +42,14 @@ class PublishPeople(UserFacingExtension, PostLoader):
         for person_id, (individual_name, affiliation_name) in _PEOPLE.items():
             person = self._app.project.ancestry[Person][person_id]
             person.public = True
-            name = PersonName(
+            person_name = PersonName(
                 person=person,
                 individual=individual_name,
                 affiliation=affiliation_name,
                 public=True,
             )
-            self._app.project.ancestry.add(name)
-            getLogger().info(f'Published {person.label.localize(DEFAULT_LOCALIZER)}')
+            self._app.project.ancestry.add(person_name)
+            getLogger().info(f'Published {person_name.label.localize(DEFAULT_LOCALIZER)}')
 
     def _publish_bart(self):
         getLogger().info('Publishing Bart...')
