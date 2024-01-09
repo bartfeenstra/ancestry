@@ -5,7 +5,7 @@ SETUP = {
     'name': 'ancestry',
     'python_requires': '~= 3.11',
     'install_requires': [
-        'betty == 0.3.0b5',
+        'betty == 0.3.0b6',
     ],
     'extras_require': {
         'development': [
