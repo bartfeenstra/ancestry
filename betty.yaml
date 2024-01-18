@@ -1,5 +1,5 @@
 base_url: http://ancestry.bartfeenstra.com
-content_negotiation: true
+clean_urls: true
 title: Lankester & Feenstra ancestries
 author: Bart Feenstra
 lifetime_threshold: 100
