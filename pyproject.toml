@@ -12,7 +12,7 @@ authors = [
 ]
 requires-python = '~= 3.11'
 dependencies = [
-    'betty == 0.3.0b11',
+    'betty == 0.3.0b13',
 ]
 
 [project.entry-points.'betty.extensions']
