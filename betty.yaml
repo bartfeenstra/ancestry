@@ -29,7 +29,7 @@ extensions:
       https: false
   betty.extension.HttpApiDoc: {}
   betty.extension.Trees: {}
-  ancestry.extension.PublishPeople: {}
+  ancestry.extension.Ancestry: {}
 locales:
   en-US:
     alias: en
