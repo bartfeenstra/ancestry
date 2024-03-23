@@ -1,9 +1,13 @@
 from betty.app.extension import Extension, UserFacingExtension
+from betty.cli import CommandProvider
 from betty.extension import Privatizer
 from betty.load import PostLoader, getLogger
 from betty.locale import Str, DEFAULT_LOCALIZER
 from betty.model.ancestry import PersonName, Person, Event, File, Place, Presence, Subject
 from betty.model.event_type import Birth, Conference
+from click import Command
+
+from ancestry.cli import _report
 
 _PEOPLE = {
     'I0000': ('Bart', 'Feenstra'),
@@ -19,7 +23,7 @@ _FILES = {
 }
 
 
-class PublishPeople(UserFacingExtension, PostLoader):
+class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
     @classmethod
     def comes_after(cls) -> set[type[Extension]]:
         return {Privatizer}
@@ -31,6 +35,12 @@ class PublishPeople(UserFacingExtension, PostLoader):
     @classmethod
     def description(cls) -> Str:
         return Str.plain('Publishes curated information about selected people.')
+
+    @property
+    def commands(self) -> dict[str, Command]:
+        return {
+            'report': _report,
+        }
 
     async def post_load(self) -> None:
         self._publish_people()
