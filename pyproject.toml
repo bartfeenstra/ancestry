@@ -23,7 +23,7 @@ dependencies = [
 development = [
     'autopep8 ~= 2.1.0',
     'basedmypy ~= 2.0, >= 2.2.1',
-    'flake8 >= 6.1,< 7.1',
+    'flake8 >= 6.1,< 7.2',
     'types-click ~= 7.1, >= 7.1.8',
 ]
 
