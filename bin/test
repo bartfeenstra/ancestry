@@ -8,6 +8,7 @@ for file in ./bin/*; do
     shellcheck -x "$file"
 done
 
-flake8 --ignore=E501 ./ancestry
+ruff check .
+ruff format --check .
 
 mypy
