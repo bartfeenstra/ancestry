@@ -1,3 +1,5 @@
+from typing import override
+
 from betty.app.extension import Extension, UserFacingExtension
 from betty.cli import CommandProvider
 from betty.extension import Privatizer
@@ -32,24 +34,29 @@ _FILES = {
 
 
 class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
+    @override
     @classmethod
     def comes_after(cls) -> set[type[Extension]]:
         return {Privatizer}
 
+    @override
     @classmethod
     def label(cls) -> Str:
         return Str.plain("Publish people")
 
+    @override
     @classmethod
     def description(cls) -> Str:
         return Str.plain("Publishes curated information about selected people.")
 
+    @override
     @property
     def commands(self) -> dict[str, Command]:
         return {
             "report": _report,
         }
 
+    @override
     async def post_load(self) -> None:
         self._publish_people()
         self._publish_bart()
