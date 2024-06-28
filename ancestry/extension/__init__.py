@@ -1,10 +1,11 @@
+import logging
 from typing import override
 
 from betty.app.extension import Extension, UserFacingExtension
 from betty.cli import CommandProvider
 from betty.extension import Privatizer
-from betty.load import PostLoader, getLogger
-from betty.locale import Str, DEFAULT_LOCALIZER
+from betty.load import PostLoader
+from betty.locale import Str, DEFAULT_LOCALIZER, Localizable
 from betty.model.ancestry import (
     PersonName,
     Person,
@@ -41,12 +42,12 @@ class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
 
     @override
     @classmethod
-    def label(cls) -> Str:
+    def label(cls) -> Localizable:
         return Str.plain("Publish people")
 
     @override
     @classmethod
-    def description(cls) -> Str:
+    def description(cls) -> Localizable:
         return Str.plain("Publishes curated information about selected people.")
 
     @override
@@ -63,7 +64,8 @@ class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
         self._publish_files()
 
     def _publish_people(self):
-        getLogger().info("Publishing selected people...")
+        logger = logging.getLogger("betty")
+        logger.info("Publishing selected people...")
         for person_id, (individual_name, affiliation_name) in _PEOPLE.items():
             person = self._app.project.ancestry[Person][person_id]
             person.public = True
@@ -74,12 +76,11 @@ class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
                 public=True,
             )
             self._app.project.ancestry.add(person_name)
-            getLogger().info(
-                f"Published {person_name.label.localize(DEFAULT_LOCALIZER)}"
-            )
+            logger.info(f"Published {person_name.label.localize(DEFAULT_LOCALIZER)}")
 
     def _publish_bart(self):
-        getLogger().info("Publishing Bart...")
+        logger = logging.getLogger("betty")
+        logger.info("Publishing Bart...")
         bart = self._app.project.ancestry[Person]["I0000"]
         netherlands = self._app.project.ancestry[Place]["P0052"]
         birth = Event(
@@ -95,8 +96,9 @@ class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
                 presence.event.public = True
 
     def _publish_files(self):
-        getLogger().info("Publishing selected files...")
+        logger = logging.getLogger("betty")
+        logger.info("Publishing selected files...")
         for file_id in _FILES:
             file = self._app.project.ancestry[File][file_id]
             file.public = True
-            getLogger().info(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
+            logger.info(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
