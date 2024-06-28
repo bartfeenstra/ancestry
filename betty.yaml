@@ -1,38 +1,48 @@
-base_url: http://ancestry.bartfeenstra.com
+url: http://ancestry.bartfeenstra.com
 clean_urls: true
 title: Lankester & Feenstra ancestries
 author: Bart Feenstra
 lifetime_threshold: 100
 extensions:
-  betty.extension.CottonCandy:
+  cotton-candy:
     configuration:
       featured_entities:
-        - entity_type: Person
-          entity_id: I0004
-        - entity_type: Place
-          entity_id: P0000
-        - entity_type: Person
-          entity_id: I0025
-        - entity_type: Person
-          entity_id: I0525
-  betty.extension.Gramps:
+        - entity_type: person
+          entity: I0004
+        - entity_type: place
+          entity: P0000
+        - entity_type: person
+          entity: I0025
+        - entity_type: person
+          entity: I0525
+  gramps:
     configuration:
       family_trees:
         - file: ./input/ancestry.gramps
-  betty.extension.Deriver: {}
-  betty.extension.Privatizer: {}
-  betty.extension.Wikipedia: {}
-  betty.extension.Maps: {}
-  betty.extension.Nginx:
+          event_types:
+            Conference: conference
+            Correspondence: correspondence
+            Funeral: funeral
+            Missing: missing
+          presence_roles:
+            Attendee: attendee
+            Beneficiary: beneficiary
+            Organizer: organizer
+            Speaker: speaker
+  deriver: {}
+  privatizer: {}
+  wikipedia: {}
+  maps: {}
+  nginx:
     configuration:
-      www_directory_path: /var/www/betty/
+      www_directory: /var/www/betty/
       https: false
-  betty.extension.HttpApiDoc: {}
-  betty.extension.Trees: {}
-  ancestry.extension.Ancestry: {}
+  http-api-doc: {}
+  trees: {}
+  ancestry: {}
 locales:
-  en-US:
+  - locale: en-US
     alias: en
-  nl-NL:
+  - locale: nl-NL
     alias: nl
-  uk: {}
+  - locale: uk
