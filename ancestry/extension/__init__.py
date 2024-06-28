@@ -1,10 +1,11 @@
+import logging
 from typing import override
 
-from betty.app.extension import Extension, UserFacingExtension
-from betty.cli import CommandProvider
-from betty.extension import Privatizer
-from betty.load import PostLoader, getLogger
-from betty.locale import Str, DEFAULT_LOCALIZER
+from betty.event_dispatcher import EventHandlerRegistry
+from betty.extension.privatizer import Privatizer
+from betty.load import PostLoadAncestryEvent
+from betty.locale.localizer import DEFAULT_LOCALIZER
+from betty.locale.localizable import Localizable, plain
 from betty.model.ancestry import (
     PersonName,
     Person,
@@ -12,12 +13,11 @@ from betty.model.ancestry import (
     File,
     Place,
     Presence,
-    Subject,
 )
 from betty.model.event_type import Birth, Conference
-from click import Command
-
-from ancestry.cli import _report
+from betty.model.presence_role import Subject
+from betty.plugin import PluginId
+from betty.project.extension import Extension
 
 _PEOPLE = {
     "I0000": ("Bart", "Feenstra"),
@@ -33,39 +33,41 @@ _FILES = {
 }
 
 
-class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
+class Ancestry(Extension):
     @override
     @classmethod
-    def comes_after(cls) -> set[type[Extension]]:
-        return {Privatizer}
-
-    @override
-    @classmethod
-    def label(cls) -> Str:
-        return Str.plain("Publish people")
+    def comes_after(cls) -> set[PluginId]:
+        return {Privatizer.plugin_id()}
 
     @override
     @classmethod
-    def description(cls) -> Str:
-        return Str.plain("Publishes curated information about selected people.")
+    def plugin_id(cls) -> PluginId:
+        return "ancestry"
 
     @override
-    @property
-    def commands(self) -> dict[str, Command]:
-        return {
-            "report": _report,
-        }
+    @classmethod
+    def plugin_label(cls) -> Localizable:
+        return plain("Publish people")
 
     @override
-    async def post_load(self) -> None:
-        self._publish_people()
-        self._publish_bart()
-        self._publish_files()
+    @classmethod
+    def plugin_description(cls) -> Localizable:
+        return plain("Publishes curated information about selected people.")
 
-    def _publish_people(self):
-        getLogger().info("Publishing selected people...")
+    @override
+    def register_event_handlers(self, registry: EventHandlerRegistry) -> None:
+        registry.add_handler(
+            PostLoadAncestryEvent,
+            self._publish_people,
+            self._publish_bart,
+            self._publish_files,
+        )
+
+    async def _publish_people(self, event: PostLoadAncestryEvent):
+        logger = logging.getLogger("betty")
+        logger.info("Publishing selected people...")
         for person_id, (individual_name, affiliation_name) in _PEOPLE.items():
-            person = self._app.project.ancestry[Person][person_id]
+            person = self.project.ancestry[Person][person_id]
             person.public = True
             person_name = PersonName(
                 person=person,
@@ -73,30 +75,30 @@ class Ancestry(UserFacingExtension, PostLoader, CommandProvider):
                 affiliation=affiliation_name,
                 public=True,
             )
-            self._app.project.ancestry.add(person_name)
-            getLogger().info(
-                f"Published {person_name.label.localize(DEFAULT_LOCALIZER)}"
-            )
+            self.project.ancestry.add(person_name)
+            logger.info(f"Published {person_name.label.localize(DEFAULT_LOCALIZER)}")
 
-    def _publish_bart(self):
-        getLogger().info("Publishing Bart...")
-        bart = self._app.project.ancestry[Person]["I0000"]
-        netherlands = self._app.project.ancestry[Place]["P0052"]
+    async def _publish_bart(self, event: PostLoadAncestryEvent):
+        logger = logging.getLogger("betty")
+        logger.info("Publishing Bart...")
+        bart = self.project.ancestry[Person]["I0000"]
+        netherlands = self.project.ancestry[Place]["P0052"]
         birth = Event(
             event_type=Birth,
             place=netherlands,
             public=True,
         )
         Presence(bart, Subject(), birth)
-        self._app.project.ancestry.add(birth)
+        self.project.ancestry.add(birth)
         for presence in bart.presences:
             if presence.event and presence.event.event_type is Conference:
                 presence.public = True
                 presence.event.public = True
 
-    def _publish_files(self):
-        getLogger().info("Publishing selected files...")
+    async def _publish_files(self, event: PostLoadAncestryEvent):
+        logger = logging.getLogger("betty")
+        logger.info("Publishing selected files...")
         for file_id in _FILES:
-            file = self._app.project.ancestry[File][file_id]
+            file = self.project.ancestry[File][file_id]
             file.public = True
-            getLogger().info(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
+            logger.info(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
