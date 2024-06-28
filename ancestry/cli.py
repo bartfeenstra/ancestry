@@ -1,12 +1,10 @@
-import click
-
-from betty.app import App
-from betty.cli import app_command
+from betty.cli.commands import pass_project, command
+from betty.project import Project
 
 from ancestry.report import report
 
 
-@click.command(help="Generate an ancestry report.")
-@app_command
-async def _report(app: App) -> None:
-    await report(app)
+@command("report", help="Generate an ancestry report.")
+@pass_project
+async def _report(project: Project) -> None:
+    await report(project)

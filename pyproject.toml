@@ -12,16 +12,21 @@ authors = [
 ]
 requires-python = '~= 3.11'
 dependencies = [
-    'betty == 0.3.13',
-    'click ~= 8.1, >= 8.1.2',
+    'betty == 0.4.0a9',
+    'click ~= 8.1',
 ]
 
-[project.entry-points.'betty.extensions']
-'ancestry.extension.Ancestry' = 'ancestry.extension.Ancestry'
+[project.entry-points.'betty.command']
+'report' = 'ancestry.cli:_report'
+
+[project.entry-points.'betty.extension']
+'ancestry' = 'ancestry.extension:Ancestry'
 
 [project.optional-dependencies]
 development = [
     'basedmypy ~= 2.0, >= 2.2.1',
+    'pytest ~= 8.3',
+    'pytest-asyncio ~= 0.23',
     'ruff ~= 0.6.1',
     'types-click ~= 7.1, >= 7.1.8',
 ]
