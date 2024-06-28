@@ -5,4 +5,4 @@ set -Eeuo pipefail
 cd "$(dirname "$0")/.."
 
 rm -rf ./output
-betty -v -c ./betty.yaml generate
+betty generate -v -c ./betty.yaml
