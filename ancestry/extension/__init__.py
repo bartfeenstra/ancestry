@@ -4,8 +4,9 @@ from typing import override
 from betty.event_dispatcher import EventHandlerRegistry
 from betty.extension.privatizer import Privatizer
 from betty.load import PostLoadAncestryEvent
+from betty.locale.localizable import Localizable, static
 from betty.locale.localizer import DEFAULT_LOCALIZER
-from betty.locale.localizable import Localizable, plain
+from betty.machine_name import MachineName
 from betty.model.ancestry import (
     PersonName,
     Person,
@@ -16,7 +17,6 @@ from betty.model.ancestry import (
 )
 from betty.model.event_type import Birth, Conference
 from betty.model.presence_role import Subject
-from betty.plugin import PluginId
 from betty.project.extension import Extension
 
 _PEOPLE = {
@@ -36,23 +36,23 @@ _FILES = {
 class Ancestry(Extension):
     @override
     @classmethod
-    def comes_after(cls) -> set[PluginId]:
+    def comes_after(cls) -> set[MachineName]:
         return {Privatizer.plugin_id()}
 
     @override
     @classmethod
-    def plugin_id(cls) -> PluginId:
+    def plugin_id(cls) -> MachineName:
         return "ancestry"
 
     @override
     @classmethod
     def plugin_label(cls) -> Localizable:
-        return plain("Publish people")
+        return static("Publish people")
 
     @override
     @classmethod
     def plugin_description(cls) -> Localizable:
-        return plain("Publishes curated information about selected people.")
+        return static("Publishes curated information about selected people.")
 
     @override
     def register_event_handlers(self, registry: EventHandlerRegistry) -> None:
@@ -84,14 +84,14 @@ class Ancestry(Extension):
         bart = self.project.ancestry[Person]["I0000"]
         netherlands = self.project.ancestry[Place]["P0052"]
         birth = Event(
-            event_type=Birth,
+            event_type=Birth(),
             place=netherlands,
             public=True,
         )
         Presence(bart, Subject(), birth)
         self.project.ancestry.add(birth)
         for presence in bart.presences:
-            if presence.event and presence.event.event_type is Conference:
+            if presence.event and isinstance(presence.event.event_type, Conference):
                 presence.public = True
                 presence.event.public = True
 
