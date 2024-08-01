@@ -8,7 +8,8 @@ for file in ./bin/*; do
     shellcheck -x "$file"
 done
 
-ruff check .
-ruff format --check .
+ruff check ./ancestry
+ruff format --check ./ancestry
 
 mypy
+pytest
