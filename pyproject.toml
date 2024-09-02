@@ -12,7 +12,7 @@ authors = [
 ]
 requires-python = '~= 3.11'
 dependencies = [
-    'betty == 0.4.0a6',
+    'betty == 0.4.0a9',
     'click ~= 8.1',
 ]
 

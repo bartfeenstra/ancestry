@@ -17,6 +17,7 @@ from betty.load import PostLoadAncestryEvent
 from betty.locale.localizable import Localizable, static
 from betty.locale.localizer import DEFAULT_LOCALIZER
 from betty.machine_name import MachineName
+from betty.plugin import PluginIdentifier
 from betty.project.extension import Extension
 
 _PEOPLE = {
@@ -36,8 +37,8 @@ _FILES = {
 class Ancestry(Extension):
     @override
     @classmethod
-    def comes_after(cls) -> set[MachineName]:
-        return {Privatizer.plugin_id()}
+    def comes_after(cls) -> set[PluginIdentifier[Extension]]:
+        return {Privatizer}
 
     @override
     @classmethod

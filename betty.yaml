@@ -23,10 +23,6 @@ extensions:
   privatizer: {}
   wikipedia: {}
   maps: {}
-  nginx:
-    configuration:
-      www_directory_path: /var/www/betty/
-      https: false
   http-api-doc: {}
   trees: {}
   ancestry: {}
