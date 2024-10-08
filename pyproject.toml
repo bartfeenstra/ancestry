@@ -12,12 +12,12 @@ authors = [
 ]
 requires-python = '~= 3.11'
 dependencies = [
-    'betty == 0.4.0a9',
+    'betty == 0.4.0a12',
     'click ~= 8.1',
 ]
 
 [project.entry-points.'betty.command']
-'report' = 'ancestry.cli:_report'
+'report' = 'ancestry.cli:Report'
 
 [project.entry-points.'betty.extension']
 'ancestry' = 'ancestry.extension:Ancestry'

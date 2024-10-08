@@ -8,13 +8,13 @@ extensions:
     configuration:
       featured_entities:
         - entity_type: person
-          entity_id: I0004
+          entity: I0004
         - entity_type: place
-          entity_id: P0000
+          entity: P0000
         - entity_type: person
-          entity_id: I0025
+          entity: I0025
         - entity_type: person
-          entity_id: I0525
+          entity: I0525
   gramps:
     configuration:
       family_trees:
