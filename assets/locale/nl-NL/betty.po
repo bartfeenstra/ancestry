@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ancestry VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-10-08 12:26+0100\n"
+"POT-Creation-Date: 2024-10-08 19:57+0100\n"
 "PO-Revision-Date: 2019-09-17 23:28+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: nl_NL\n"
@@ -39,9 +39,5 @@ msgstr ""
 
 #, python-format
 msgid "Last modified on %(last_modified)s"
-msgstr ""
-
-#, python-format
-msgid "© Copyright %(author)s, unless otherwise credited"
 msgstr ""
 
