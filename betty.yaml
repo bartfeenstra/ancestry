@@ -4,6 +4,10 @@ title: Lankester & Feenstra ancestries
 author: Bart Feenstra
 lifetime_threshold: 100
 extensions:
+  betty-nginx:
+    configuration:
+      www_directory_path: /var/www/betty/
+      https: false
   cotton-candy:
     configuration:
       featured_entities:

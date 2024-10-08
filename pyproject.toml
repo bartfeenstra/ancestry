@@ -13,7 +13,7 @@ authors = [
 requires-python = '~= 3.11'
 dependencies = [
     'betty == 0.4.0a12',
-    'click ~= 8.1',
+    'betty-nginx == 0.1.0a1',
 ]
 
 [project.entry-points.'betty.command']
