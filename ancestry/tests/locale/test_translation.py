@@ -9,7 +9,9 @@ from betty.test_utils.locale import ProjectPotFileTestBase
 class TestPotFile(ProjectPotFileTestBase):
     @override
     def command(self) -> str:
-        return "betty update-translations ./ancestry ./ancestry/tests"
+        return (
+            "betty update-translations --source ./ancestry --exclude ./ancestry/tests"
+        )
 
     @override
     def source_directory_path(self) -> Path:

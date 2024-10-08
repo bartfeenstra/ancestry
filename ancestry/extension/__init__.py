@@ -1,24 +1,22 @@
 import logging
 from typing import override
 
-from betty.ancestry import (
-    PersonName,
-    Person,
-    Event,
-    File,
-    Place,
-    Presence,
-)
-from betty.ancestry.event_type import Birth, Conference
-from betty.ancestry.presence_role import Subject
+from betty.ancestry.event import Event
+from betty.ancestry.event_type.event_types import Birth, Conference
+from betty.ancestry.file import File
+from betty.ancestry.person import Person
+from betty.ancestry.person_name import PersonName
+from betty.ancestry.place import Place
+from betty.ancestry.presence import Presence
+from betty.ancestry.presence_role.presence_roles import Subject
 from betty.event_dispatcher import EventHandlerRegistry
-from betty.extension.privatizer import Privatizer
-from betty.load import PostLoadAncestryEvent
 from betty.locale.localizable import Localizable, static
 from betty.locale.localizer import DEFAULT_LOCALIZER
 from betty.machine_name import MachineName
 from betty.plugin import PluginIdentifier
 from betty.project.extension import Extension
+from betty.project.extension.privatizer import Privatizer
+from betty.project.load import PostLoadAncestryEvent
 
 _PEOPLE = {
     "I0000": ("Bart", "Feenstra"),
@@ -92,7 +90,7 @@ class Ancestry(Extension):
         Presence(bart, Subject(), birth)
         self.project.ancestry.add(birth)
         for presence in bart.presences:
-            if presence.event and isinstance(presence.event.event_type, Conference):
+            if isinstance(presence.event.event_type, Conference):
                 presence.public = True
                 presence.event.public = True
 
