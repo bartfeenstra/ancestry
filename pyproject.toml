@@ -12,8 +12,8 @@ authors = [
 ]
 requires-python = '~= 3.12'
 dependencies = [
-    'betty == 0.4.0a12',
-    'betty-nginx == 0.1.0a1',
+    'betty == 0.4.0a13',
+    'betty-nginx == 0.1.0a2',
 ]
 
 [project.entry-points.'betty.command']
