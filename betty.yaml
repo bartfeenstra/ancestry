@@ -19,6 +19,16 @@ extensions:
     configuration:
       family_trees:
         - file: ./input/ancestry.gramps
+          event_types:
+            Conference: conference
+            Correspondence: correspondence
+            Funeral: funeral
+            Missing: missing
+          presence_roles:
+            Attendee: attendee
+            Beneficiary: beneficiary
+            Organizer: organizer
+            Speaker: speaker
   deriver: {}
   privatizer: {}
   wikipedia: {}
