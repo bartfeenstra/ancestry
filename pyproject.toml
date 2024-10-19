@@ -12,7 +12,7 @@ authors = [
 ]
 requires-python = '~= 3.12'
 dependencies = [
-    'betty == 0.4.0a13',
+    'betty == 0.4.0a14',
     'betty-nginx == 0.1.0a2',
 ]
 
