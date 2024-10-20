@@ -10,7 +10,7 @@ version = '0.0.0'
 authors = [
   {name = 'Bart Feenstra', email = 'bar@bartfeenstra.com'},
 ]
-requires-python = '~= 3.11'
+requires-python = '~= 3.12'
 dependencies = [
     'betty == 0.3.14',
     'click ~= 8.1, >= 8.1.2',
