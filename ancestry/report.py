@@ -1,9 +1,9 @@
 import logging
 
-from betty.app import App
-from betty.load import load
+from betty.project import Project
+from betty.project.load import load
 
 
-async def report(app: App) -> None:
+async def report(project: Project) -> None:
     logging.getLogger("betty").setLevel(logging.DEBUG)
-    await load(app)
+    await load(project)
