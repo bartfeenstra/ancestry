@@ -27,7 +27,7 @@ development = [
     'basedmypy ~= 2.6',
     'pytest ~= 8.3',
     'pytest-asyncio ~= 0.24',
-    'ruff ~= 0.7.0',
+    'ruff ~= 0.8.0',
     'types-click ~= 7.1, >= 7.1.8',
 ]
 
