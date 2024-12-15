@@ -1,10 +1,10 @@
 url: https://ancestry.bartfeenstra.com
 clean_urls: true
-title: Lankester & Feenstra ancestries
+title: Lankester & Feenstra
 author: Bart Feenstra
 lifetime_threshold: 100
 extensions:
-  cotton-candy:
+  raspberry-mint:
     configuration:
       featured_entities:
         - entity_type: person

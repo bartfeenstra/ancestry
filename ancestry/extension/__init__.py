@@ -1,4 +1,5 @@
 import logging
+from collections.abc import Sequence
 from typing import override
 
 from betty.ancestry.event import Event
@@ -11,7 +12,8 @@ from betty.ancestry.presence import Presence
 from betty.ancestry.presence_role.presence_roles import Subject
 from betty.date import Date, DateRange
 from betty.event_dispatcher import EventHandlerRegistry
-from betty.locale.localizable import Localizable, static
+from betty.html import NavigationLink, NavigationLinkProvider
+from betty.locale.localizable import Localizable, static, _
 from betty.locale.localizer import DEFAULT_LOCALIZER
 from betty.machine_name import MachineName
 from betty.plugin import PluginIdentifier
@@ -33,7 +35,7 @@ _FILES = {
 }
 
 
-class Ancestry(Extension):
+class Ancestry(NavigationLinkProvider, Extension):
     @override
     @classmethod
     def comes_after(cls) -> set[PluginIdentifier[Extension]]:
@@ -103,3 +105,9 @@ class Ancestry(Extension):
             file = self.project.ancestry[File][file_id]
             file.public = True
             logger.info(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
+
+    @override
+    def secondary_navigation_links(self) -> Sequence[NavigationLink]:
+        return [
+            NavigationLink("betty-entity://person/I0000", _("About the author")),
+        ]
