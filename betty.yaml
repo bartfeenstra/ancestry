@@ -46,3 +46,8 @@ locales:
   - locale: nl-NL
     alias: nl
   - locale: uk
+copyright_notices:
+  friends-of-highgate-cemetery-trust:
+    label: Friends of Highgate Cemetery Trust
+    summary: Copyright Friends of Highgate Cemetery Trust
+    text: Copyright Friends of Highgate Cemetery Trust
