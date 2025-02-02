@@ -9,6 +9,7 @@ from betty.ancestry.person_name import PersonName
 from betty.ancestry.place import Place
 from betty.ancestry.presence import Presence
 from betty.ancestry.presence_role.presence_roles import Subject
+from betty.date import Date, DateRange
 from betty.event_dispatcher import EventHandlerRegistry
 from betty.locale.localizable import Localizable, static
 from betty.locale.localizer import DEFAULT_LOCALIZER
@@ -84,6 +85,7 @@ class Ancestry(Extension):
         netherlands = self.project.ancestry[Place]["P0052"]
         birth = Event(
             event_type=Birth(),
+            date=DateRange(Date(1970, 1, 1), start_is_boundary=True),
             place=netherlands,
             public=True,
         )
