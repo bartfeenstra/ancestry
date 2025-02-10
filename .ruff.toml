@@ -14,6 +14,7 @@ extend-select = [
     'TCH',
 ]
 ignore = [
+    'A005',
     'D100',
     'D101',
     'D102',
