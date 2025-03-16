@@ -5,7 +5,7 @@ set -Eeuo pipefail
 cd "$(dirname "$0")/.."
 
 rsync --delete --perms -r ./output/www/ ancestry.bartfeenstra.com:/opt/ancestry/www
-base_url=$(yq eval '.base_url' betty.yaml)
+base_url=$(yq eval '.url' betty.yaml)
 nginx_server_name=$(python -c "from urllib.parse import urlparse; print(urlparse('$base_url').netloc)")
 rsync --delete --perms -r ./output/nginx/ ancestry.bartfeenstra.com:/opt/ancestry/nginx
 # shellcheck disable=SC2087
