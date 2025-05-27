@@ -3,7 +3,8 @@ from __future__ import annotations  # noqa D100
 from typing import TYPE_CHECKING, final, Self
 
 from betty.app.factory import AppDependentFactory
-from betty.cli.commands import command, Command, project_option
+from betty.console.project import add_project_argument
+from betty.console.command import Command, CommandFunction
 from betty.locale.localizable import _
 from betty.plugin import ShorthandPluginBase
 from typing_extensions import override
@@ -11,8 +12,8 @@ from typing_extensions import override
 from ancestry.report import report
 
 if TYPE_CHECKING:
+    import argparse
     from betty.project import Project
-    import asyncclick as click
     from betty.app import App
 
 
@@ -30,19 +31,9 @@ class Report(ShorthandPluginBase, AppDependentFactory, Command):
         return cls(app)
 
     @override
-    async def click_command(self) -> click.Command:
-        localizer = await self._app.localizer
-        description = self.plugin_description()
+    async def configure(self, parser: argparse.ArgumentParser) -> CommandFunction:
+        return await add_project_argument(parser, self._command_function, self._app)
 
-        @command(
-            self.plugin_id(),
-            short_help=self.plugin_label().localize(localizer),
-            help=description.localize(localizer)
-            if description
-            else self.plugin_label().localize(localizer),
-        )
-        @project_option
-        async def _report(project: Project) -> None:
+    async def _command_function(self, project: Project) -> None:
+        async with project:
             await report(project)
-
-        return _report
