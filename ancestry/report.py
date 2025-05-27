@@ -1,9 +1,13 @@
-import logging
-
 from betty.project import Project
 from betty.project.load import load
+from betty.user import Verbosity
 
 
 async def report(project: Project) -> None:
-    logging.getLogger("betty").setLevel(logging.DEBUG)
-    await load(project)
+    original_verbosity = project.app.user.verbosity
+    project.app.user.verbosity = Verbosity.VERBOSE
+    try:
+        await load(project)
+    except BaseException:
+        project.app.user.verbosity = original_verbosity
+        raise
