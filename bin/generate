@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -Eeuo pipefail
-
-cd "$(dirname "$0")/.."
-
-rm -rf ./output
-betty generate -vv -c ./betty.yaml
