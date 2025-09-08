@@ -31,7 +31,7 @@ extensions:
             Speaker: speaker
   deriver: {}
   privatizer: {}
-  wikipedia: {}
+  wiki: {}
   maps: {}
   nginx:
     configuration:

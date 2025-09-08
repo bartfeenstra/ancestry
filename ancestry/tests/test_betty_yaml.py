@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from betty.config import assert_configuration_file
+from betty.config.file import assert_configuration_file
 from betty.project.config import ProjectConfiguration
 
 
