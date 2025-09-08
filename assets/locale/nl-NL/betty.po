@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ancestry VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-02-19 21:09+0000\n"
+"POT-Creation-Date: 2025-10-20 23:34+0100\n"
 "PO-Revision-Date: 2019-09-17 23:28+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: nl_NL\n"
@@ -20,7 +20,4 @@ msgstr ""
 
 msgid "About the author"
 msgstr "Over de auteur"
-
-msgid "Generate an ancestry report."
-msgstr ""
 
