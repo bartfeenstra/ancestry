@@ -24,6 +24,8 @@ extensions:
             Correspondence: correspondence
             Funeral: funeral
             Missing: missing
+          place_types:
+            Cemetery: cemetery
           presence_roles:
             Attendee: attendee
             Beneficiary: beneficiary

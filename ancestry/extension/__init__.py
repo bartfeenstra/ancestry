@@ -1,6 +1,5 @@
-import logging
 from collections.abc import Sequence
-from typing import override
+from typing import override, final
 
 from betty.ancestry.event import Event
 from betty.ancestry.event_type.event_types import Birth, Conference
@@ -11,15 +10,16 @@ from betty.ancestry.place import Place
 from betty.ancestry.presence import Presence
 from betty.ancestry.presence_role.presence_roles import Subject
 from betty.date import Date, DateRange
-from betty.event_dispatcher import EventHandlerRegistry
 from betty.html import NavigationLink, NavigationLinkProvider
-from betty.locale.localizable import Localizable, static, _
+from betty.job import Job
+from betty.job.scheduler import Scheduler
+from betty.locale.localizable import _, Plain
 from betty.locale.localizer import DEFAULT_LOCALIZER
-from betty.machine_name import MachineName
-from betty.plugin import PluginIdentifier
-from betty.project.extension import Extension
+from betty.project import ProjectContext
+from betty.project.extension import Extension, ExtensionDefinition
 from betty.project.extension.privatizer import Privatizer
-from betty.project.load import PostLoadAncestryEvent
+from betty.project.extension.privatizer.jobs import PrivatizeAncestry
+from betty.project.load import PostLoader
 
 _PEOPLE = {
     "I0000": ("Bart", "Feenstra"),
@@ -35,41 +35,19 @@ _FILES = {
 }
 
 
-class Ancestry(NavigationLinkProvider, Extension):
-    @override
-    @classmethod
-    def comes_after(cls) -> set[PluginIdentifier[Extension]]:
-        return {Privatizer}
-
-    @override
-    @classmethod
-    def plugin_id(cls) -> MachineName:
-        return "ancestry"
-
-    @override
-    @classmethod
-    def plugin_label(cls) -> Localizable:
-        return static("Publish people")
-
-    @override
-    @classmethod
-    def plugin_description(cls) -> Localizable:
-        return static("Publishes curated information about selected people.")
-
-    @override
-    def register_event_handlers(self, registry: EventHandlerRegistry) -> None:
-        registry.add_handler(
-            PostLoadAncestryEvent,
-            self._publish_people,
-            self._publish_bart,
-            self._publish_files,
+class _PublishPeople(Job[ProjectContext]):
+    def __init__(self):
+        super().__init__(
+            "ancestry:publish-people", dependencies={PrivatizeAncestry.id_for()}
         )
 
-    async def _publish_people(self, event: PostLoadAncestryEvent):
-        logger = logging.getLogger("betty")
-        logger.info("Publishing selected people...")
+    @override
+    async def do(self, scheduler: Scheduler[ProjectContext], /) -> None:
+        project = scheduler.context.project
+        user = project.app.user
+        await user.message_information(Plain("Publishing selected people..."))
         for person_id, (individual_name, affiliation_name) in _PEOPLE.items():
-            person = self.project.ancestry[Person][person_id]
+            person = project.ancestry[Person][person_id]
             person.public = True
             person_name = PersonName(
                 person=person,
@@ -77,14 +55,25 @@ class Ancestry(NavigationLinkProvider, Extension):
                 affiliation=affiliation_name,
                 public=True,
             )
-            self.project.ancestry.add(person_name)
-            logger.info(f"Published {person_name.label.localize(DEFAULT_LOCALIZER)}")
+            project.ancestry.add(person_name)
+            await user.message_information(
+                Plain(f"Published {person_name.label.localize(DEFAULT_LOCALIZER)}")
+            )
 
-    async def _publish_bart(self, event: PostLoadAncestryEvent):
-        logger = logging.getLogger("betty")
-        logger.info("Publishing Bart...")
-        bart = self.project.ancestry[Person]["I0000"]
-        netherlands = self.project.ancestry[Place]["P0052"]
+
+class _PublishBart(Job[ProjectContext]):
+    def __init__(self):
+        super().__init__(
+            "ancestry:publish-bart", dependencies={PrivatizeAncestry.id_for()}
+        )
+
+    @override
+    async def do(self, scheduler: Scheduler[ProjectContext], /) -> None:
+        project = scheduler.context.project
+        user = project.app.user
+        await user.message_information(Plain("Publishing Bart..."))
+        bart = project.ancestry[Person]["I0000"]
+        netherlands = project.ancestry[Place]["P0052"]
         birth = Event(
             event_type=Birth(),
             date=DateRange(Date(1970, 1, 1), start_is_boundary=True),
@@ -92,19 +81,47 @@ class Ancestry(NavigationLinkProvider, Extension):
             public=True,
         )
         Presence(bart, Subject(), birth)
-        self.project.ancestry.add(birth)
+        project.ancestry.add(birth)
         for presence in bart.presences:
             if isinstance(presence.event.event_type, Conference):
                 presence.public = True
                 presence.event.public = True
 
-    async def _publish_files(self, event: PostLoadAncestryEvent):
-        logger = logging.getLogger("betty")
-        logger.info("Publishing selected files...")
+
+class _PublishFiles(Job[ProjectContext]):
+    def __init__(self):
+        super().__init__(
+            "ancestry:publish-files", dependencies={PrivatizeAncestry.id_for()}
+        )
+
+    @override
+    async def do(self, scheduler: Scheduler[ProjectContext], /) -> None:
+        project = scheduler.context.project
+        user = project.app.user
+        await user.message_information(Plain("Publishing selected files..."))
         for file_id in _FILES:
-            file = self.project.ancestry[File][file_id]
+            file = project.ancestry[File][file_id]
             file.public = True
-            logger.info(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
+            await user.message_information(
+                Plain(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
+            )
+
+
+@final
+@ExtensionDefinition(
+    id="ancestry",
+    label=Plain("Publish people"),
+    description=Plain("Publishes curated information about selected people."),
+    depends_on={Privatizer},
+)
+class Ancestry(NavigationLinkProvider, PostLoader, Extension):
+    @override
+    async def post_load(self, scheduler: Scheduler[ProjectContext]) -> None:
+        await scheduler.add(
+            _PublishPeople(),
+            _PublishBart(),
+            _PublishFiles(),
+        )
 
     @override
     def secondary_navigation_links(self) -> Sequence[NavigationLink]:
