@@ -37,8 +37,9 @@ extensions:
   maps: {}
   nginx:
     configuration:
-      www_directory: /var/www/betty/
       https: false
+      legacy_entity_redirects: true
+      www_directory: /var/www/betty/
   http-api-doc: {}
   trees: {}
   ancestry: {}
