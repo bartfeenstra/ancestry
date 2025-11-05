@@ -45,7 +45,7 @@ class _PublishPeople(Job[ProjectContext]):
     async def do(self, scheduler: Scheduler[ProjectContext], /) -> None:
         project = scheduler.context.project
         user = project.app.user
-        await user.message_information(Plain("Publishing selected people..."))
+        await user.message_debug(Plain("Publishing selected people..."))
         for person_id, (individual_name, affiliation_name) in _PEOPLE.items():
             person = project.ancestry[Person][person_id]
             person.public = True
@@ -56,7 +56,7 @@ class _PublishPeople(Job[ProjectContext]):
                 public=True,
             )
             project.ancestry.add(person_name)
-            await user.message_information(
+            await user.message_debug(
                 Plain(f"Published {person_name.label.localize(DEFAULT_LOCALIZER)}")
             )
 
@@ -71,7 +71,7 @@ class _PublishBart(Job[ProjectContext]):
     async def do(self, scheduler: Scheduler[ProjectContext], /) -> None:
         project = scheduler.context.project
         user = project.app.user
-        await user.message_information(Plain("Publishing Bart..."))
+        await user.message_debug(Plain("Publishing Bart..."))
         bart = project.ancestry[Person]["I0000"]
         netherlands = project.ancestry[Place]["P0052"]
         birth = Event(
@@ -98,11 +98,11 @@ class _PublishFiles(Job[ProjectContext]):
     async def do(self, scheduler: Scheduler[ProjectContext], /) -> None:
         project = scheduler.context.project
         user = project.app.user
-        await user.message_information(Plain("Publishing selected files..."))
+        await user.message_debug(Plain("Publishing selected files..."))
         for file_id in _FILES:
             file = project.ancestry[File][file_id]
             file.public = True
-            await user.message_information(
+            await user.message_debug(
                 Plain(f"Published {file.label.localize(DEFAULT_LOCALIZER)}")
             )
 
