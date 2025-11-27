@@ -16,7 +16,7 @@ from betty.job.scheduler import Scheduler
 from betty.locale.localizable import _, Plain
 from betty.locale.localizer import DEFAULT_LOCALIZER
 from betty.project import ProjectContext
-from betty.project.extension import Extension, ExtensionDefinition
+from betty.project.extension import Extension, ExtensionPlugin
 from betty.project.extension.privatizer import Privatizer
 from betty.project.extension.privatizer.jobs import PrivatizeAncestry
 from betty.project.load import PostLoader
@@ -108,8 +108,8 @@ class _PublishFiles(Job[ProjectContext]):
 
 
 @final
-@ExtensionDefinition(
-    id="ancestry",
+@ExtensionPlugin(
+    "ancestry",
     label=Plain("Publish people"),
     description=Plain("Publishes curated information about selected people."),
     depends_on={Privatizer},
