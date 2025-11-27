@@ -6,15 +6,18 @@ lifetime_threshold: 100
 extensions:
   raspberry-mint:
     configuration:
-      featured_entities:
-        - entity_type: person
-          entity: I0004
-        - entity_type: place
-          entity: P0000
-        - entity_type: person
-          entity: I0025
-        - entity_type: person
-          entity: I0525
+      regional_content:
+        front-page-content:
+          - id: raspberry-mint-featured-entities
+            configuration:
+              - entity_type: person
+                entity: I0004
+              - entity_type: place
+                entity: P0000
+              - entity_type: person
+                entity: I0025
+              - entity_type: person
+                entity: I0525
   gramps:
     configuration:
       family_trees:
