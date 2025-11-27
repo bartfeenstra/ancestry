@@ -1,4 +1,5 @@
 # Gramps & Betty artifacts.
+/.cache
 /input
 /output
 

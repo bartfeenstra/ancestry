@@ -1,13 +1,26 @@
-from betty.project import Project
-from betty.project.load import load
+"""
+Project reporting.
+"""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from betty.load import load
 from betty.user import Verbosity
+
+if TYPE_CHECKING:
+    from betty.project import Project
 
 
 async def report(project: Project) -> None:
-    original_verbosity = project.app.user.verbosity
-    project.app.user.verbosity = Verbosity.VERBOSE
+    """
+    Output a 'project report'.
+    """
+    original_verbosity = project.upstream.user.verbosity
+    await project.upstream.user.set_verbosity(Verbosity.VERBOSE)
     try:
         await load(project)
     except BaseException:
-        project.app.user.verbosity = original_verbosity
+        await project.upstream.user.set_verbosity(original_verbosity)
         raise

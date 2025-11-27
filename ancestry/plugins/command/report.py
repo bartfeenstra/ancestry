@@ -1,33 +1,40 @@
-from __future__ import annotations  # noqa D100
+"""
+The report command.
+"""
 
-from typing import TYPE_CHECKING, final, Self
+from __future__ import annotations
 
-from betty.app.factory import AppDependentFactory
-from betty.console.command import Command, CommandFunction, CommandDefinition
+from typing import TYPE_CHECKING, Self, final, override
+
+from betty.app import App
+from betty.console import CommandDefinition
+from betty.console.command import Command
 from betty.console.project import add_project_argument
-from betty.locale.localizable import Plain
-from typing_extensions import override
+from betty.factory import Manufacturable
 
 from ancestry.report import report
 
 if TYPE_CHECKING:
     import argparse
+
+    from betty.console import CommandFunction
     from betty.project import Project
-    from betty.app import App
 
 
 @final
-@CommandDefinition(
-    id="report",
-    label=Plain("Generate an ancestry report."),
-)
-class Report(AppDependentFactory, Command):
+@CommandDefinition("report", label="Generate an ancestry report.")
+class Report(Command, Manufacturable):
+    """
+    Output a 'project report'.
+    """
+
     def __init__(self, app: App):
         self._app = app
 
     @override
+    @App.require
     @classmethod
-    async def new_for_app(cls, app: App) -> Self:
+    async def new(cls, app: App, /) -> Self:
         return cls(app)
 
     @override

@@ -3,20 +3,51 @@ clean_urls: true
 title: Lankester & Feenstra
 author: Bart Feenstra
 lifetime_threshold: 100
+enrichers:
+  ancestry: {}
+  deriver: {}
+  privatizer: {}
+  wiki: {}
+generate_entity_list_html:
+  - person
+  - event
+  - place
+  - source
 extensions:
   raspberry-mint:
-    configuration:
-      featured_entities:
-        - entity_type: person
-          entity: I0004
-        - entity_type: place
-          entity: P0000
-        - entity_type: person
-          entity: I0025
-        - entity_type: person
-          entity: I0525
+    data:
+      regional_content:
+        front-page-content:
+          - plugin: raspberry-mint-columns
+            data:
+              content:
+                - - plugin: raspberry-mint-entity-card
+                    data:
+                      type: person
+                      id: I0004
+                - - plugin: raspberry-mint-entity-card
+                    data:
+                      type: place
+                      id: P0000
+                - - plugin: raspberry-mint-entity-card
+                    data:
+                      type: person
+                      id: I0025
+              width:
+                xs: [12, 12, 12]
+                md: [6, 6, 6]
+                lg: [4, 4, 4]
+  maps: {}
+  nginx:
+    data:
+      https: false
+      legacy_entity_redirects: true
+      www_directory: /var/www/betty/
+  http-api-doc: {}
+  trees: {}
+loaders:
   gramps:
-    configuration:
+    data:
       family_trees:
         - file: ./input/ancestry.gramps
           event_types:
@@ -26,23 +57,11 @@ extensions:
             Missing: missing
           place_types:
             Cemetery: cemetery
-          presence_roles:
+          roles:
             Attendee: attendee
             Beneficiary: beneficiary
             Organizer: organizer
             Speaker: speaker
-  deriver: {}
-  privatizer: {}
-  wiki: {}
-  maps: {}
-  nginx:
-    configuration:
-      https: false
-      legacy_entity_redirects: true
-      www_directory: /var/www/betty/
-  http-api-doc: {}
-  trees: {}
-  ancestry: {}
 locales:
   - locale: en-US
     alias: en
