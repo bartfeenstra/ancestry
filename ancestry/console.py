@@ -2,8 +2,8 @@ from __future__ import annotations  # noqa D100
 
 from typing import TYPE_CHECKING, final, Self
 
-from betty.app.factory import AppDependentFactory
-from betty.console.command import Command, CommandFunction, CommandDefinition
+from betty.app.factory import AppDependentSelfFactory
+from betty.console.command import Command, CommandFunction, CommandPlugin
 from betty.console.project import add_project_argument
 from betty.locale.localizable import Plain
 from typing_extensions import override
@@ -17,11 +17,11 @@ if TYPE_CHECKING:
 
 
 @final
-@CommandDefinition(
-    id="report",
+@CommandPlugin(
+    "report",
     label=Plain("Generate an ancestry report."),
 )
-class Report(AppDependentFactory, Command):
+class Report(AppDependentSelfFactory, Command):
     def __init__(self, app: App):
         self._app = app
 

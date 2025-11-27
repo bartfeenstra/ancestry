@@ -5,9 +5,9 @@ from betty.user import Verbosity
 
 async def report(project: Project) -> None:
     original_verbosity = project.app.user.verbosity
-    project.app.user.verbosity = Verbosity.VERBOSE
+    await project.app.user.set_verbosity(Verbosity.VERBOSE)
     try:
         await load(project)
     except BaseException:
-        project.app.user.verbosity = original_verbosity
+        await project.app.user.set_verbosity(original_verbosity)
         raise

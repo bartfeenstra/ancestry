@@ -2,7 +2,7 @@ from typing import override
 
 from betty.test_utils.project.extension import (
     ExtensionTestBase,
-    ExtensionDefinitionTestBase,
+    ExtensionPluginTestBase,
 )
 
 from ancestry.extension import Ancestry
@@ -14,7 +14,7 @@ import pytest
 from betty.plugin import PluginDefinition
 
 
-class TestAncestryDefinition(ExtensionDefinitionTestBase):
+class TestAncestryPlugin(ExtensionPluginTestBase):
     @override
     @pytest.fixture
     def sut(self) -> PluginDefinition:
@@ -26,4 +26,4 @@ class TestAncestry(ExtensionTestBase):
     @pytest.fixture
     async def sut(self, temporary_app: App) -> Extension:
         async with Project.new_temporary(temporary_app) as project, project:
-            return await Ancestry.new_for_project(project)
+            return Ancestry(project)
