@@ -10,25 +10,28 @@ version = '0.0.0'
 authors = [
   {name = 'Bart Feenstra', email = 'bar@bartfeenstra.com'},
 ]
-requires-python = '~= 3.12'
+requires-python = '~= 3.13'
 dependencies = [
-    'betty ~= 0.5.0a17',
-    'betty-nginx ~= 0.2.0a11',
+    'betty ~= 0.5.0a37',
+    'betty-nginx ~= 0.2.0a13',
 ]
 
 [project.entry-points.'betty.command']
-'report' = 'ancestry.console:Report.plugin'
+'report' = 'ancestry.plugins.command.report:Report'
 
-[project.entry-points.'betty.extension']
-'ancestry' = 'ancestry.extension:Ancestry.plugin'
+[project.entry-points.'betty.enricher']
+'ancestry' = 'ancestry.plugins.enricher.ancestry:Ancestry'
+
+[project.entry-points.'betty.link']
+'about-the-author' = 'ancestry.plugins.link.about_the_author:ABOUT_THE_AUTHOR'
 
 [project.optional-dependencies]
 development = [
     'aioresponses ~= 0.7.8',
-    'basedmypy ~= 2.6',
-    'pytest ~= 8.3',
+    'pytest ~= 9.0',
     'pytest-asyncio ~= 1.1',
-    'ruff ~= 0.14.0',
+    'ruff ~= 0.15.0',
+    'ty == 0.0.32',
 ]
 
 [tool.setuptools.packages.find]
